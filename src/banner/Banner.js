@@ -29,7 +29,6 @@ function Banner() {
       className='banner'
       style={{
         backgroundSize: 'cover',
-        backgroundPosition: 'center',
         backgroundImage: `url("${process.env.REACT_APP_BASE_IMAGE_URL}${movie?.backdrop_path}")`,
         backgroundPosition: 'center center',
       }}
