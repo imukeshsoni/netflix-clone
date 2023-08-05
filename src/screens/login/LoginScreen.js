@@ -25,7 +25,7 @@ function LoginScreen() {
 
       <div className='loginScreen__body'>
         {signIn ? (
-          <SignupScreen email={emailRef.current.value}/>
+          <SignupScreen email={emailRef?.current && emailRef.current.value}/>
         ) : (
           <>
             <h1>Unlimited films, TV programmes and more.</h1>

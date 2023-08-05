@@ -9,6 +9,7 @@ function PlansScreen() {
   const [products, setProducts] = useState([]);
   const user = useSelector(selectUser);
   const [subscription, setSubscription] = useState();
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     db.collection('customers')
@@ -28,6 +29,7 @@ function PlansScreen() {
   }, [user.uid]);
 
   const loadCheckout = async (priceId) => {
+    setLoading(true);
     const docRef = await db
       .collection('customers')
       .doc(user.uid)
@@ -36,6 +38,8 @@ function PlansScreen() {
         price: priceId,
         success_url: window.location.origin,
         cancel_url: window.location.origin,
+      }).finally(() => {
+        setLoading(false);
       });
     docRef.onSnapshot(async (snap) => {
       const { error, sessionId } = snap.data();
@@ -48,7 +52,9 @@ function PlansScreen() {
         const stripe = await loadStripe(
           'pk_test_51ID1SQBQeGQcoPkuG5Zpgs4fxwWQbWIrRMQDlK2Lzspe3iYyaTaUvga93LPHoA38TSOJeUZ0YXq8tLbOM3j7CzMG00QVf1EPFq'
         );
-        stripe.redirectToCheckout({ sessionId });
+        stripe.redirectToCheckout({ sessionId }).finally(() => {
+          setLoading(false);
+        });
       }
     });
   };
@@ -93,19 +99,24 @@ function PlansScreen() {
           <div
             key={productId}
             className={`${
-              isCurrentPackage && 'plansScreen__plan--disabled'
+              (isCurrentPackage)  && 'plansScreen__plan--disabled'
             } plansScreen__plan`}
           >
             <div className='plansScreen__info'>
               <h5>{productData.name}</h5>
               <h6>{productData.description}</h6>
             </div>
+
             <button
-              disabled={isCurrentPackage}
+              disabled={isCurrentPackage || loading}
               onClick={() => loadCheckout(productData?.prices?.priceId)}
             >
               {isCurrentPackage ? 'Current Package' : 'Subscribe'}
             </button>
+            {
+              loading && 
+                <div id="loader" className="nfLoader"></div>
+            }
           </div>
         );
       })}
