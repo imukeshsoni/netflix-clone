@@ -19,6 +19,10 @@
 .signupScreen__gray {
     color: gray;
 }
+.signupScreen__error {
+    color: #e87c03;
+    text-align: left;
+}
 
 .signupScreen>form>h4 {
     text-align: left;
@@ -31,12 +35,14 @@
 }
 
 .signupScreen>form>input {
+    color: #fff;
     outline-width: 0;
     height: 40px;
     margin-bottom: 14px;
     border-radius: 5px;
     border: none;
     padding: 5px 15px;
+    background-color: #333;
 }
 
 .signupScreen>form>button {
