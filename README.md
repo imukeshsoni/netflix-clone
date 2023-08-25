@@ -1,5 +1,7 @@
 # Getting Started with Create React App and Redux
 
+## Watch the explanation in this post: https://www.linkedin.com/posts/imukeshsoni_netflix-redux-firebase-activity-7093578649563504640-TDXV?utm_source=share&utm_medium=member_desktop
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app), using the [Redux](https://redux.js.org/) and [Redux Toolkit](https://redux-toolkit.js.org/) template.
 
 ## Available Scripts
